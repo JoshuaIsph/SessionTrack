@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../viewmodel/home_viewmodel.dart';
+import '../viewmodel/screen1_viewmodel.dart';
 
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+class Screen1View extends StatelessWidget {
+  const Screen1View({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<HomeViewModel>();
+    final viewModel = context.watch<Screen1ViewModel>();
 
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(backgroundColor: Colors.black, elevation: 0),
-
+      body: const Center(
+        child: Text(
+          'Welcome to Screen 1!',
+          style: TextStyle(color: Colors.white, fontSize: 24),
+        ),
+      ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // Left rectangular "Track Session" button
+            // Track Session Button
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
@@ -31,18 +35,19 @@ class HomeView extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                // TODO: Add "Track Session" action
+                viewModel.trackSession(); // Call ViewModel method
               },
               child: const Text(
                 'Track Session',
                 style: TextStyle(color: Colors.black, fontSize: 16),
               ),
             ),
-            // Right circular "+" button
+
+            // Circular "+" Button
             FloatingActionButton(
               backgroundColor: Colors.white,
               onPressed: () {
-                // TODO: Add "+" button action
+                viewModel.addItem(); // Call ViewModel method
               },
               child: const Icon(Icons.add, color: Colors.black),
             ),
