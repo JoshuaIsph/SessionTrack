@@ -2,28 +2,45 @@ import 'package:flutter/material.dart';
 import '../model/screen2_model.dart';
 
 class Screen2ViewModel extends ChangeNotifier {
-  // Screen2 state
-  Screen2Model _data = Screen2Model(
-    title: "Screen 2",
-    description: "This is the second screen.",
-  );
+  // List of months
+  final List<MonthlyStatistics> _monthlyData = [
+    MonthlyStatistics(
+      month: "January",
+      totalSessionTime: "12h 34m",
+      numberOfSessions: 27,
+      averageSessionTime: "28m",
+      longestSession: "1h 15m",
+      sessions: [
+        Session(date: "2026-01-01", duration: "30m"),
+        Session(date: "2026-01-02", duration: "45m"),
+        Session(date: "2026-01-03", duration: "1h 5m"),
+      ],
+    ),
+    MonthlyStatistics(
+      month: "February",
+      totalSessionTime: "10h 12m",
+      numberOfSessions: 20,
+      averageSessionTime: "30m",
+      longestSession: "1h 0m",
+      sessions: [
+        Session(date: "2026-02-01", duration: "25m"),
+        Session(date: "2026-02-02", duration: "40m"),
+      ],
+    ),
+    // Add more months
+  ];
 
-  Screen2Model get data => _data;
+  List<MonthlyStatistics> get monthlyData => _monthlyData;
 
-  // Update the title
-  void updateTitle(String newTitle) {
-    _data.title = newTitle;
-    notifyListeners(); // Notifies the UI to rebuild
-  }
+  int _currentMonthIndex = 0;
 
-  // Update the description
-  void updateDescription(String newDescription) {
-    _data.description = newDescription;
-    notifyListeners();
-  }
+  MonthlyStatistics get currentMonthData => _monthlyData[_currentMonthIndex];
+  String get currentMonth => _monthlyData[_currentMonthIndex].month;
 
-  // Example action
-  void exampleAction() {
-    debugPrint('Screen2 action executed');
+  void setMonth(int index) {
+    if (index >= 0 && index < _monthlyData.length) {
+      _currentMonthIndex = index;
+      notifyListeners();
+    }
   }
 }
